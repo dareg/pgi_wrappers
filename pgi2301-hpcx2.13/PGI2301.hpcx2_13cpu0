@@ -11,12 +11,12 @@ FRTNAME = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-hpcx2.13/mpif90.23.01-hp
 # C (cross-)compiler
 # ------------------
 
-VCCNAME = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-mpi4/mpicc.23.01-hpcx2.13
+VCCNAME = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-hpcx2.13/mpicc.23.01-hpcx2.13
 
 # C++ (cross-)compiler
 # ------------------
 
-CXXNAME = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-mpi4/mpic++.23.01-hpcx2.13
+CXXNAME = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-hpcx2.13/mpic++.23.01-hpcx2.13
 
 # Native C compiler
 # -----------------
@@ -140,17 +140,17 @@ GMK_FCFLAGS_MKTOPBD =
 # Fortran (cross-)linker
 # ----------------------
 
-LNK_STD = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-mpi4/mpif90.23.01-hpcx2.13
+LNK_STD = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-hpcx2.13/mpif90.23.01-hpcx2.13
 
 # Message Passing Fortran (cross-)linker
 # --------------------------------------
 
-LNK_MPI = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-mpi4/mpif90.23.01-hpcx2.13
+LNK_MPI = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-hpcx2.13/mpif90.23.01-hpcx2.13
 
 # cc (cross-)linker
 # -----------------
 
-LNK_CC = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-mpi4/mpicc.23.01-hpcx2.13
+LNK_CC = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2301-hpcx2.13/mpicc.23.01-hpcx2.13
 
 # Fortran linking flags
 # ----------------------
