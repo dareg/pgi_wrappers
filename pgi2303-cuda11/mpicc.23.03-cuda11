@@ -16,6 +16,5 @@ if ((grep { $_ eq '-E' } @ARGV) && (grep { $_ eq '-P' } @ARGV))
   {
     exec ("/usr/bin/cpp", @ARGV);
   }
-
 exec ("$NVHPC_PREFIX/$OMPI_PREFIX/bin/mpicc", @ARGV, "-L$NVHPC_PREFIX/compilers/lib", '-lnvhpcatm', "-Wl,-rpath,$NVHPC_PREFIX/compilers/lib",
-      "-L$NVHPC_PREFIX/$CUDA_PREFIX/targets/x86_64-linux/lib", '-lnvhpcwrapnvtx', '-lnvToolsExt');
+      "-L$NVHPC_PREFIX/$CUDA_PREFIX/targets/x86_64-linux/lib", '-lnvhpcwrapnvtx', '-lnvToolsExt', '-lnvf');
