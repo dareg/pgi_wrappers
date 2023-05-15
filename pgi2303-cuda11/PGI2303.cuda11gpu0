@@ -6,6 +6,7 @@
 # ------------------------
 
 FRTNAME = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-cuda11/mpif90.23.03-cuda11
+#FRTNAME = /home/gmap/mrpm/marguina/bin/vimpack.d/fixpack --type screen -- /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-cuda11/mpif90.23.03-cuda11
 
 
 # C (cross-)compiler
@@ -21,7 +22,7 @@ CXXNAME = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-cuda11/mpic++.23.03-cuda
 # Native C compiler
 # -----------------
 
-CCNATIVE = /usr/bin/gcc 
+CCNATIVE = /usr/bin/gcc
 
 # Native C linker flags
 # ---------------------
@@ -106,18 +107,19 @@ LIST_EXTENSION = list
 
 MACROS_FRT = -DBULL -DLINUX -DLITTLE_ENDIAN -DLITTLE -DADDRESS64 -DGRIB_API_1
 MACROS_CC = -DBULL -DLINUX -DLITTLE_ENDIAN -DLITTLE
-MACROS_ODB98 = -DLINUX -DLITTLE_ENDIAN -DLITTLE -DXPRIVATE=PRIVATE -UINTERCEPT_ALLOC -UUSE_ALLOCA_H
+MACROS_CXX = -std=c++11
+MACROS_ODB98 = -DLINUX -DLITTLE_ENDIAN -DLITTLE -DXPRIVATE=PRIVATE -UINTERCEPT_ALLOC -UUSE_ALLOCA_H -DWITHOUT_OML
 MACROS_BL95 = -DLINUX -DLITTLE_ENDIAN -DLITTLE -DIS_MAIN_PROG -DSTATIC_LINKING
 
 GMK_FCFLAGS_ARPIFS = -DINTEL_BUG_LAIDDIOBSAD -DINTEL_BUG_MPOBSEQ
 GMK_FCFLAGS_ARP = -DINTEL_BUG_LAIDDIOBSAD -DINTEL_BUG_MPOBSEQ
 
-GMK_FCFLAGS_SATRAD = -D_RTTOV_DO_DISTRIBCOEF -D_RTTOV_HDF -DWITHOUT_EMOSLIB 
+GMK_FCFLAGS_SATRAD = -D_RTTOV_DO_DISTRIBCOEF -D_RTTOV_HDF -DWITHOUT_EMOSLIB
 GMK_FCFLAGS_SAT = -D_RTTOV_DO_DISTRIBCOEF
 
 GMK_FCFLAGS_SURFEX = -r8 -Din_surfex -DSFX_ARO -DSFX_ASC -DSFX_OL -DSFX_TXT -DSFX_FA -DSFX_LFI -DARO -DOL -DASC -DTXT -DFA -DLFI
-GMK_FCFLAGS_MSE = -r8 
-GMK_FCFLAGS_MPA = -r8 
+GMK_FCFLAGS_MSE = -r8
+GMK_FCFLAGS_MPA = -r8
 
 GMK_FCFLAGS_XRD = -DHIGHRES -DBLAS
 GMK_FCFLAGS_IFSAUX = -DHIGHRES -DBLAS
@@ -152,12 +154,16 @@ LNK_MPI = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-cuda11/mpif90.23.03-cuda
 
 LNK_CC = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-cuda11/mpicc.23.03-cuda11
 
+# CXX (cross-)linker (for mixed langages c++ and fortran)
+# -------------------------------------------------------
+LNK_CXX = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-cuda11/mpic++.23.03-cuda11
+
 # Fortran linking flags
 # ----------------------
 
-LNK_FLAGS = -acc=gpu -gpu=cc70 -traceback -Mbyteswapio -mp -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/eccodes-2.14.0/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/lapack-3.2.1/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/hdf5-1.10.5/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/netcdf-4.7.2/lib -Wl,-rpath,/opt/softs/nvidia/hpc_sdk/Linux_x86_64/23.3/cuda/11.8/targets/x86_64-linux/lib/
+LNK_FLAGS = -acc=gpu -gpu=cc70 -traceback -Mbyteswapio -mp -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/eccodes-2.14.0/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/lapack-3.2.1/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/hdf5-1.10.5/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/netcdf-4.7.2/lib -Wl,-rpath,/opt/softs/nvidia/hpc_sdk/Linux_x86_64/23.3/cuda/11.8/targets/x86_64-linux/lib/ -Wl,-rpath,/home/gmap/mrpm/grassetj/pack/49t0_master-.01.PGI2303.cuda11cpu0/hub/local/build/fckit/module/
 
-# Fortran Flag for start/end group libraries 
+# Fortran Flag for start/end group libraries
 # ------------------------------------------
 
 LNK_STARTG = -Wl,--start-group
@@ -167,6 +173,47 @@ LNK_ENDG   = -Wl,--end-group
 # -------------
 
 LNK_MAP = -Wl,-M
+
+# Hub
+# ---
+# Hub general directory
+GMK_HUB_DIR      = hub
+# Hub general installation directory (must be at a fixed place inside the pack in order to be propagated)
+GMK_HUB_INSTALL  = install
+# Hub general build directory (absolute path because it may be a non-permanent directory in production mode) :
+GMK_HUB_BUILD    = \${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMKLOCAL}/build
+
+# List of projects in hub (ordered sort to enable dependencies)
+GMK_HUB_PROJECTS = ecSDK OOPS Atlas Fiat Ectrans
+
+GMK_HUB_LIBRARIES_IN_ecSDK = ecbuild eckit fckit
+GMK_HUB_METHOD_FOR_ecSDK = cmake
+
+GMK_HUB_LIBRARIES_IN_OOPS = oops_src
+GMK_HUB_METHOD_FOR_OOPS = cmake
+
+GMK_HUB_LIBRARIES_IN_Atlas = atlas
+GMK_HUB_METHOD_FOR_Atlas = cmake
+
+GMK_HUB_LIBRARIES_IN_Fiat = fiat
+GMK_HUB_METHOD_FOR_Fiat = cmake
+
+GMK_HUB_LIBRARIES_IN_Ectrans = ectrans
+GMK_HUB_METHOD_FOR_Ectrans = cmake
+
+GMK_CMAKE_ecbuild = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME}
+
+GMK_CMAKE_eckit = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE_C_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS}\" -DCMAKE_CXX_COMPILER=\${CXXNAME} -DCMAKE_CXX_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CXX}\" -DCMAKE_BUILD_TYPE=NONE -DENABLE_ECKIT_CMD=OFF -DENABLE_ECKIT_SQL=OFF -DENABLE_BZIP2=OFF -DENABLE_SNAPPY=OFF -DENABLE_LAPACK=OFF -DENABLE_CURL=OFF -DENABLE_DOCS=OFF -DENABLE_SSL=OFF -DBUILD_SHARED_LIBS=BOTH -DECBUILD_2_COMPAT=ON -DECBUILD_2_COMPAT_DEPRECATE=OFF
+
+GMK_CMAKE_fckit = -Wno-deprecated -Wno-dev -DCMAKE_CXX_COMPILER=\${CXXNAME} -DCMAKE_CXX_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CXX}\" -DCMAKE_Fortran_COMPILER=\${FRTNAME} -DCMAKE_Fortran_FLAGS=\"${FRTFLAGS} ${OPT_FRTFLAGS}\" -DCMAKE_BUILD_TYPE=NONE -DCMAKE_PREFIX_PATH=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMK_HUB_INSTALL}/ecSDK -DENABLE_FINAL=OFF -DENABLE_TESTS=OFF -DBUILD_SHARED_LIBS=OFF -DECBUILD_2_COMPAT=ON -DECBUILD_2_COMPAT_DEPRECATE=OFF
+
+GMK_CMAKE_oops_src = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE_C_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS}\" -DCMAKE_CXX_COMPILER=\${CXXNAME} -DCMAKE_CXX_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CXX}\" -DCMAKE_Fortran_COMPILER=\${FRTNAME} -DCMAKE_Fortran_FLAGS=\"${FRTFLAGS} ${OPT_FRTFLAGS}\" -DCMAKE_BUILD_TYPE=NONE -DCMAKE_MODULE_PATH=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMKLOCAL}/\${GMKSRC}/ecSDK/ecbuild/cmake -DECKIT_PATH=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMK_HUB_INSTALL}/ecSDK -DFCKIT_PATH=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMK_HUB_INSTALL}/ecSDK -DENABLE_TESTS=OFF -DBUILD_SHARED_LIBS=BOTH -DECBUILD_2_COMPAT=ON -DECBUILD_2_COMPAT_DEPRECATE=OFF -DEIGEN3_INCLUDE_DIR=/home/gmap/mrpm/grassetj/eigen-3.4.0
+
+GMK_CMAKE_atlas = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE_C_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS}\" -DCMAKE_CXX_COMPILER=\${CXXNAME} -DCMAKE_CXX_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CXX}\" -DCMAKE_Fortran_COMPILER=\${FRTNAME} -DATLAS_Fortran_FLAGS=\"${FRTFLAGS} ${OPT_FRTFLAGS}\" -DCMAKE_BUILD_TYPE=NONE -Decbuild_ROOT=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMKSRC}/ecSDK -DCMAKE_PREFIX_PATH=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMK_HUB_INSTALL}/ecSDK -DENABLE_TESTS=OFF -DBUILD_SHARED_LIBS=OFF -DECBUILD_2_COMPAT=ON -DECBUILD_2_COMPAT_DEPRECATE=OFF
+
+GMK_CMAKE_fiat = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE_C_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CC}\" -DCMAKE_CXX_COMPILER=\${CXXNAME} -DCMAKE_CXX_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CXX}\" -DCMAKE_Fortran_COMPILER=\${FRTNAME} -DCMAKE_Fortran_FLAGS=\"${FRTFLAGS} ${OPT_FRTFLAGS}\" -DCMAKE_BUILD_TYPE=NONE -Decbuild_ROOT=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMKSRC}/ecSDK -DBUILD_SHARED_LIBS=BOTH -DENABLE_TESTS=OFF -DECBUILD_2_COMPAT=ON -DECBUILD_2_COMPAT_DEPRECATE=OFF -DENABLE_SINGLE_PRECISION=OFF
+
+GMK_CMAKE_ectrans = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE_C_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS}\" -DCMAKE_CXX_COMPILER=\${CXXNAME} -DCMAKE_CXX_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CXX}\" -DCMAKE_Fortran_COMPILER=\${FRTNAME} -DCMAKE_Fortran_FLAGS=\"${FRTFLAGS} ${OPT_FRTFLAGS}\" -DCMAKE_BUILD_TYPE=NONE -Decbuild_ROOT=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMKSRC}/ecSDK -Dfiat_ROOT=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMK_HUB_INSTALL}/Fiat -DENABLE_TRANSI=OFF -DBUILD_SHARED_LIBS=OFF -DENABLE_TESTS=OFF -DECBUILD_2_COMPAT=ON -DECBUILD_2_COMPAT_DEPRECATE=OFF -DENABLE_SINGLE_PRECISION=OFF -DMKL_PATH=\$MKLROOT/mkl -DENABLE_GPU=OFF -Deccodes_ROOT=\${ECCODES_INSTALLDIR}
 
 # User libraries (absolute filename or short name) :
 # ------------------------------------------------
@@ -206,6 +253,26 @@ LD_USR_MF_DUMMY =
 # "Magics :"
 LD_USR_MAGPLUS =
 LD_USR_MAGICS =
+# "xml :"
+LD_USR_XML = 
+# "Boost unit test framework" :
+LD_USR_BOOST_UNIT_TEST_FRAMEWORK = /opt/softs/libraries/GCC_5.3.0/boost-1.73.0/lib/libboost_unit_test_framework.so
+
+# Libraries from Hub :
+# "eckit/fckit":
+LD_USR_FCKIT = fckit
+LD_USR_ECKIT_MPI = eckit_mpi
+LD_USR_ECKIT = eckit
+# "OOPS" :
+LD_USR_OOPS = oops
+# "Atlas" :
+LD_USR_ATLAS_F = atlas_f
+# parkind :
+LD_USR_PARKIND = parkind_dp
+# fiat :
+LD_USR_FIAT = fiat
+# ectrans :
+LD_USR_ECTRANS = trans_dp
 
 # Language libraries (absolute filename or short name) :
 # ----------------------------------------------------
@@ -255,27 +322,32 @@ RANLIB =
 # (Cross-) nm command & options for BSD format
 # --------------------------------------------
 
-NMOPTS = /usr/bin/nm 
+NMOPTS = /usr/bin/nm
 
 # Native awk program
 # ------------------
 
-AWK = /usr/bin/awk 
+AWK = /usr/bin/awk
 
 # (Cross-)archive
 # ---------------
 
-AR = /usr/bin/ar 
+AR = /usr/bin/ar
 
 # Native archive
 # --------------
 
-ARNATIVE = /usr/bin/ar 
+ARNATIVE = /usr/bin/ar
 
 # Native preprocessor
 # -------------------
 
-CPP = /usr/bin/cpp 
+CPP = /usr/bin/cpp
+
+# cmake executable
+# ----------------
+
+GMK_CMAKE = /opt/softs/libraries/ICC_2018.5.274/cmake-3.24.1/bin/cmake
 
 # Native lex program
 # ------------------
@@ -337,6 +409,11 @@ GMKSRC = src
 # -----------------------------------------
 
 GMKINTFB = .intfb
+
+# directory of .F90 files generated from .fypp files
+# --------------------------------------------------
+
+GMKFYPPF90 = .fypp
 
 # MAIN (ie : bottom background) source directory name
 # ---------------------------------------------------
@@ -425,7 +502,7 @@ GMK_NQS_JOBID =
 
 # Submission cards : other directives
 # -----------------------------------
- 
+
 GMK_NQS_OTHER = 
 GMK_NQS_OTHER = 
 GMK_NQS_OTHER = 
@@ -436,7 +513,7 @@ GMK_NQS_OTHER =
 
 # Compiler feature extension for aeolus software
 # ----------------------------------------------
-GMK_AEOLUS_F90 = /gpfsstore/rech/jau/ufh62jk/gmkpack_support/wrapper/OPENMPI403/mpif90 /gpfsstore/rech/jau/ufh62jk/gmkpack_support/wrapper/PGI2011/gfortran
+GMK_AEOLUS_F90 = pgf90
 
 # LatLon handling extension for aeolus software
 # ---------------------------------------------
