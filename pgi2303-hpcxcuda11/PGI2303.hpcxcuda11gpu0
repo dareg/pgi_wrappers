@@ -161,7 +161,7 @@ LNK_CXX = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-hpcxcuda11/mpic++.23.03-
 # Fortran linking flags
 # ----------------------
 
-LNK_FLAGS = -acc=gpu -gpu=cc70 -traceback -Mbyteswapio -mp -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/eccodes-2.14.0/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/lapack-3.2.1/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/hdf5-1.10.5/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/netcdf-4.7.2/lib -Wl,-rpath,/opt/softs/nvidia/hpc_sdk/Linux_x86_64/23.3/cuda/11.8/targets/x86_64-linux/lib/ -Wl,-rpath,/home/gmap/mrpm/grassetj/pack/49t0_master-.01.PGI2303.cuda11cpu0/hub/local/build/fckit/module/
+LNK_FLAGS = -acc=gpu -gpu=cc70 -traceback -Mbyteswapio -mp -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/eccodes-2.14.0/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/lapack-3.2.1/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/hdf5-1.10.5/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/netcdf-4.7.2/lib -Wl,-rpath,/opt/softs/nvidia/hpc_sdk/Linux_x86_64/23.3/cuda/11.8/targets/x86_64-linux/lib/
 
 # Fortran Flag for start/end group libraries
 # ------------------------------------------
