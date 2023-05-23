@@ -16,7 +16,7 @@ VCCNAME = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-intelmpi/mpicc.23.03-int
 # C++ (cross-)compiler
 # ------------------
 
-CXXNAME =  /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-intelmpi/mpic++.23.03-intelmpi
+CXXNAME = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-intelmpi/mpic++.23.03-intelmpi
 
 # Native C compiler
 # -----------------
@@ -141,17 +141,17 @@ GMK_FCFLAGS_MKTOPBD =
 # Fortran (cross-)linker
 # ----------------------
 
-LNK_STD =  /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-intelmpi/mpif90.23.03-intelmpi
+LNK_STD = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-intelmpi/mpif90.23.03-intelmpi
 
 # Message Passing Fortran (cross-)linker
 # --------------------------------------
 
-LNK_MPI =  /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-intelmpi/mpif90.23.03-intelmpi
+LNK_MPI = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-intelmpi/mpif90.23.03-intelmpi
 
 # cc (cross-)linker
 # -----------------
 
-LNK_CC =  /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-intelmpi/mpicc.23.03-intelmpi
+LNK_CC = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2303-intelmpi/mpicc.23.03-intelmpi
 
 # CXX (cross-)linker (for mixed langages c++ and fortran)
 # -------------------------------------------------------
