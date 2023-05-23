@@ -1,0 +1,15 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my $NVHPC_PREFIX = "/opt/softs/nvidia/hpc_sdk/Linux_x86_64/23.3";
+
+my ($BASE, $XXX, $YYY, $OPT, $LIB) = ("/opt/softs/intel", "2018.04", "2018.5.274", "-mt_mpi", "");
+my @OPT = split (m/\s+/o, $OPT);
+my @LIB = split (m/\s+/o, $LIB);
+
+local $ENV{LD_LIBRARY_PATH} = "$NVHPC_PREFIX/comm_libs/nvshmem/lib:$NVHPC_PREFIX/comm_libs/nccl/lib:$NVHPC_PREFIX/math_libs/lib64:$NVHPC_PREFIX/compilers/lib";
+local $ENV{PATH} = "$NVHPC_PREFIX/compilers/bin:$ENV{PATH}";
+
+exec ("/opt/softs/intel/2018.04/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpiicpc", "-Wl,-rpath,$BASE/$XXX/intel64/lib", @OPT, "-cxx=nvc++", @ARGV, @LIB, 
+      "-L$NVHPC_PREFIX/compilers/lib", '-lnvf', '-lnvhpcatm', "-Wl,-rpath,$NVHPC_PREFIX/compilers/lib", '-lnvhpcwrapnvtx');
