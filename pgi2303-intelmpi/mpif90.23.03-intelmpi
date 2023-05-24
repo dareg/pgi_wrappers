@@ -11,7 +11,7 @@ my @LIB = split (m/\s+/o, $LIB);
 local $ENV{LD_LIBRARY_PATH} = "$NVHPC_PREFIX/comm_libs/nvshmem/lib:$NVHPC_PREFIX/comm_libs/nccl/lib:$NVHPC_PREFIX/math_libs/lib64:$NVHPC_PREFIX/compilers/lib:";
 local $ENV{PATH} = "$NVHPC_PREFIX/compilers/bin:$ENV{PATH}";
 
-my @cmd = ("/opt/softs/intel/2018.04/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpiifort","-Wl,-rpath,$BASE/$XXX/intel64/lib", @OPT, "-fc=nvfortran", @ARGV, @LIB, "-L$NVHPC_PREFIX/compilers/lib", '-lnvhpcatm', "-Wl,-rpath,$NVHPC_PREFIX/compilers/lib", '-lnvhpcwrapnvtx');
+my @cmd = ("/opt/softs/intel/2018.04/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpiifort","-Wl,-rpath,$BASE/$XXX/intel64/lib", @OPT, "-fc=nvfortran", @ARGV, @LIB, "-L$NVHPC_PREFIX/compilers/lib", '-lnvhpcatm', "-Wl,-rpath,$NVHPC_PREFIX/compilers/lib", '-lnvhpcwrapnvtx', '-lstdc++');
 
 for (@cmd)
   {
