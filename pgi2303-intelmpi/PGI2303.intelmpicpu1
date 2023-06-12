@@ -46,7 +46,7 @@ LIBFRT = echo PGI2303
 # Basic compilation flags
 # -----------------------
 
-FRTFLAGS = -c -mp -fPIC -Minfo -gopt -Mlarge_arrays -Mlist -traceback -Mnofma -Mbyteswapio -Mbackslash
+FRTFLAGS = -c -mp -fPIC -Minfo -gopt -Mlarge_arrays -Mlist -traceback -Mnofma -Mbyteswapio -Mbackslash -Mstack_arrays
 VCCFLAGS = -c -mp -fPIC -Minfo -gopt -Mlarge_arrays -Mlist -traceback -Mnofma
 # Option -C in order to create files without compiling inside odb98
 # In order to have any effect from the following -1 or -A options,
