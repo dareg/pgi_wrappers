@@ -11,6 +11,10 @@ local $ENV{LD_LIBRARY_PATH} = "$NVHPC_PREFIX/comm_libs/nvshmem/lib:$NVHPC_PREFIX
 local $ENV{PATH} = "$NVHPC_PREFIX/compilers/bin:$ENV{PATH}";
 local $ENV{NVHPC_CUDA_HOME} = "$NVHPC_PREFIX/$CUDA_PREFIX";
 
+#hack for bug in math lib of NVHPC 23.11, provided by Louis Stuber
+local $ENV{CPATH} = "/home/ext/dsi/nvidia/stuberl/fixed-pgi-math/:$ENV{CPATH}"
+
+
 my @mpi_libs = ("-L$NVHPC_PREFIX/$OMPI_PREFIX/lib", "-Wl,-rpath,$NVHPC_PREFIX/$OMPI_PREFIX/lib", qw (-lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi));
 
 exec ("$NVHPC_PREFIX/$OMPI_PREFIX/bin/mpic++", @ARGV, 
