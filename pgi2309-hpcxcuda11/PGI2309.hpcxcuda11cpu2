@@ -184,7 +184,7 @@ GMK_HUB_INSTALL  = install
 GMK_HUB_BUILD    = \${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMKLOCAL}/build
 
 # List of projects in hub (ordered sort to enable dependencies)
-GMK_HUB_PROJECTS = ecSDK OOPS Atlas Fiat Ectrans FieldAPI
+GMK_HUB_PROJECTS = ecSDK OOPS Atlas Fiat Ectrans Field_api
 
 GMK_HUB_LIBRARIES_IN_ecSDK = ecbuild eckit fckit
 GMK_HUB_METHOD_FOR_ecSDK = cmake
@@ -201,8 +201,8 @@ GMK_HUB_METHOD_FOR_Fiat = cmake
 GMK_HUB_LIBRARIES_IN_Ectrans = ectrans
 GMK_HUB_METHOD_FOR_Ectrans = cmake
 
-GMK_HUB_LIBRARIES_IN_FieldAPI = field_api
-GMK_HUB_METHOD_FOR_FieldAPI = cmake
+GMK_HUB_LIBRARIES_IN_Field_api = field_api
+GMK_HUB_METHOD_FOR_Field_api = cmake
 
 
 GMK_CMAKE_ecbuild = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME}
