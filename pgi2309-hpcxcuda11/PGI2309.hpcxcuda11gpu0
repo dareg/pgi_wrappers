@@ -56,7 +56,7 @@ ODBFLAGS = -C -O3
 
 # Fortran double precision flags
 # ------------------------------
-DBL_FRTFLAGS =
+DBL_FRTFLAGS = -r8
 
 # Fortran Cpp + extensions flags
 # ------------------------------
@@ -105,39 +105,29 @@ LIST_EXTENSION = list
 # Additive compilation flags
 # --------------------------
 
-MACROS_FRT = -DBULL -DLINUX -DLITTLE_ENDIAN -DLITTLE -DADDRESS64 -DGRIB_API_1
-MACROS_CC = -DBULL -DLINUX -DLITTLE_ENDIAN -DLITTLE
+MACROS_FRT = -DLINUX -DLITTLE_ENDIAN -DLITTLE -DADDRESS64 -DGRIB_API_1
+MACROS_CC = -DLINUX -DLITTLE_ENDIAN -DLITTLE
 MACROS_CXX = -std=c++11
-MACROS_ODB98 = -DLINUX -DLITTLE_ENDIAN -DLITTLE -DXPRIVATE=PRIVATE -UINTERCEPT_ALLOC -UUSE_ALLOCA_H -DWITHOUT_OML
 MACROS_BL95 = -DLINUX -DLITTLE_ENDIAN -DLITTLE -DIS_MAIN_PROG -DSTATIC_LINKING
+MACROS_ODB98 = -DLINUX -DLITTLE_ENDIAN -DLITTLE -DXPRIVATE=PRIVATE -UINTERCEPT_ALLOC -UUSE_ALLOCA_H -DWITHOUT_OML
 
-GMK_FCFLAGS_ARPIFS = -DINTEL_BUG_LAIDDIOBSAD -DINTEL_BUG_MPOBSEQ
-GMK_FCFLAGS_ARP = -DINTEL_BUG_LAIDDIOBSAD -DINTEL_BUG_MPOBSEQ
 
 GMK_FCFLAGS_SATRAD = -D_RTTOV_DO_DISTRIBCOEF -D_RTTOV_HDF -DWITHOUT_EMOSLIB
 GMK_FCFLAGS_SAT = -D_RTTOV_DO_DISTRIBCOEF
 
-GMK_FCFLAGS_SURFEX = -r8 -Din_surfex -DSFX_ARO -DSFX_ASC -DSFX_OL -DSFX_TXT -DSFX_FA -DSFX_LFI -DARO -DOL -DASC -DTXT -DFA -DLFI
-GMK_FCFLAGS_MSE = -r8
+GMK_FCFLAGS_SURFEX = -Din_surfex -DSFX_ARO -DSFX_ASC -DSFX_OL -DSFX_TXT -DSFX_FA -DSFX_LFI -DARO -DOL -DASC -DTXT -DFA -DLFI -r8
+GMK_FCFLAGS_MSE = -DSFX_FA -r8
 GMK_FCFLAGS_MPA = -r8
+GMK_FCFLAGS_PHYEX = -r8
 
-GMK_FCFLAGS_XRD = -DHIGHRES -DBLAS
 GMK_FCFLAGS_IFSAUX = -DHIGHRES -DBLAS
-GMK_FCFLAGS_XLA = -DBLAS
 GMK_FCFLAGS_ALGOR = -DBLAS
-GMK_CFLAGS_XRD = -DPOINTER_64
-GMK_CFLAGS_IFSAUX = -DPOINTER_64 -DWITHOUT_CXXDEMANGLE
+GMK_CFLAGS_IFSAUX = -DPOINTER_64
 GMK_CFLAGS_ODB = -DSTATIC_LINKING -DXPRIVATE=PRIVATE -DINTERCEPT_ALLOC -DUSE_ALLOCA_H -DCANARI -DHAS_LAPACK -DNO_CURSES -DODB_NMXUPD=4
-GMK_CFLAGS_BLA = -DSTATIC_LINKING -DXPRIVATE=PRIVATE -DINTERCEPT_ALLOC -DUSE_ALLOCA_H
 GMK_CFLAGS_BLACKLIST = -DSTATIC_LINKING -DXPRIVATE=PRIVATE -DINTERCEPT_ALLOC -DUSE_ALLOCA_H
 
-GMK_FCFLAGS_EXTRACTHDIAG =
-GMK_FCFLAGS_SPLITBDAP =
-GMK_FCFLAGS_MOCAGE =
-GMK_FCFLAGS_SUMO =
-GMK_FCFLAGS_INIT_MOCAGE =
-GMK_FCFLAGS_TSTRESTART =
-GMK_FCFLAGS_MKTOPBD =
+GMK_FCFLAGS_TRANS = 
+GMK_FCFLAGS_ETRANS = 
 
 # Fortran (cross-)linker
 # ----------------------
@@ -156,18 +146,30 @@ LNK_CC = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2309-hpcxcuda11/mpicc.23.09-hp
 
 # CXX (cross-)linker (for mixed langages c++ and fortran)
 # -------------------------------------------------------
-LNK_CXX = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2309-hpcxcuda11/mpic++.23.09-hpcxcuda11
+LNK_CXX = /home/gmap/mrpm/grassetj/pgi_wrappers/pgi2309-hpcxcuda11/mpic++.23.09-hpcxcuda11 -lstdc++
 
 # Fortran linking flags
 # ----------------------
 
-LNK_FLAGS = -acc=gpu -gpu=cc70 -traceback -Mbyteswapio -mp -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/eccodes-2.14.0/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/lapack-3.2.1/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/hdf5-1.10.5/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/netcdf-4.7.2/lib -Wl,-rpath,/opt/softs/nvidia/hpc_sdk/Linux_x86_64/23.3/cuda/11.8/targets/x86_64-linux/lib/
+LNK_FLAGS = -traceback -Mbyteswapio -mp -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/eccodes-2.14.0/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/lapack-3.2.1/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/hdf5-1.10.5/lib -Wl,-rpath,/home/gmap/mrpm/marguina/install/PGI2211/netcdf-4.7.2/lib -Wl,-rpath,/opt/softs/nvidia/hpc_sdk/Linux_x86_64/23.3/cuda/11.8/targets/x86_64-linux/lib/ -lstdc++
 
 # Fortran Flag for start/end group libraries
 # ------------------------------------------
 
 LNK_STARTG = -Wl,--start-group
 LNK_ENDG   = -Wl,--end-group
+
+# Flag for linking with whole static libraries
+# ---------------------------------  ---------
+
+LNK_WHOLE_ARCHIVE = -Wl,-whole-archive
+LNK_NO_WHOLE_ARCHIVE = -Wl,-no-whole-archive
+
+# Flags for static/dynamic linking
+# --------------------------------
+
+LNK_STATIC = -Wl,-Bstatic
+LNK_DYNAMIC = -Wl,-Bdynamic
 
 # Load map flag
 # -------------
@@ -204,7 +206,6 @@ GMK_HUB_METHOD_FOR_Ectrans = cmake
 GMK_HUB_LIBRARIES_IN_Field_api = field_api
 GMK_HUB_METHOD_FOR_Field_api = cmake
 
-
 GMK_CMAKE_ecbuild = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME}
 
 GMK_CMAKE_eckit = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE_C_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS}\" -DCMAKE_CXX_COMPILER=\${CXXNAME} -DCMAKE_CXX_FLAGS=\"-I/home/gmap/mrpm/grassetj/eigen-3.4.0/install/include/eigen3/ ${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CXX}\" -DCMAKE_BUILD_TYPE=NONE -DENABLE_ECKIT_CMD=OFF -DENABLE_ECKIT_SQL=OFF -DENABLE_BZIP2=OFF -DENABLE_SNAPPY=OFF -DENABLE_LAPACK=OFF -DENABLE_CURL=OFF -DENABLE_DOCS=OFF -DENABLE_SSL=OFF -DBUILD_SHARED_LIBS=BOTH -DECBUILD_2_COMPAT=ON -DECBUILD_2_COMPAT_DEPRECATE=OFF -Deigen_DIR=/home/gmap/mrpm/grassetj/eigen-3.4.0/install/include/eigen3/ -DEIGEN3_INCLUDE_DIR=/home/gmap/mrpm/grassetj/eigen-3.4.0/install/include/eigen3/
@@ -219,7 +220,7 @@ GMK_CMAKE_fiat = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE
 
 GMK_CMAKE_ectrans = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE_C_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS}\" -DCMAKE_CXX_COMPILER=\${CXXNAME} -DCMAKE_CXX_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CXX}\" -DCMAKE_Fortran_COMPILER=\${FRTNAME} -DCMAKE_Fortran_FLAGS=\"${FRTFLAGS} ${OPT_FRTFLAGS}\" -DCMAKE_BUILD_TYPE=NONE -Decbuild_ROOT=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMKSRC}/ecSDK -Dfiat_ROOT=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMK_HUB_INSTALL}/Fiat -DENABLE_TRANSI=OFF -DBUILD_SHARED_LIBS=OFF -DENABLE_TESTS=OFF -DECBUILD_2_COMPAT=ON -DECBUILD_2_COMPAT_DEPRECATE=OFF -DENABLE_SINGLE_PRECISION=OFF -DENABLE_GPU=OFF -Deccodes_ROOT=\${ECCODES_INSTALLDIR}
 
-GMK_CMAKE_field_api = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE_C_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS}\" -DCMAKE_Fortran_COMPILER=\${FRTNAME} -DCMAKE_Fortran_FLAGS=\"${FRTFLAGS} ${OPT_FRTFLAGS} ${MACROS_FRT}\" -DCMAKE_BUILD_TYPE=NONE -Decbuild_ROOT=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMKSRC}/ecSDK -Dfiat_ROOT=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMK_HUB_INSTALL}/Fiat -DBUILD_SHARED_LIBS=OFF -DENABLE_ACC=ON -DENABLE_SINGLE_PRECISION=OFF
+GMK_CMAKE_field_api = -Wno-deprecated -Wno-dev -DCMAKE_C_COMPILER=\${VCCNAME} -DCMAKE_C_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS}\" -DCMAKE_CXX_COMPILER=\${CXXNAME} -DCMAKE_CXX_FLAGS=\"${VCCFLAGS} ${OPT_VCCFLAGS} ${MACROS_CXX}\" -DCMAKE_Fortran_COMPILER=\${FRTNAME} -DCMAKE_Fortran_FLAGS=\"${FRTFLAGS} ${OPT_FRTFLAGS}\" -DCMAKE_BUILD_TYPE=NONE -Dfiat_ROOT=\${TARGET_PACK}/\${GMK_HUB_DIR}/\${GMK_LAST_HUB_BRANCH}/\${GMK_HUB_INSTALL}/Fiat -DFYPP_PATH=\${GMK_FYPP} -DCMAKE_BUILD_TYPE=NONE -DENABLE_ACC=ON -DENABLE_SINGLE_PRECISION=OFF
 
 # User libraries (absolute filename or short name) :
 # ------------------------------------------------
